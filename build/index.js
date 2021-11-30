@@ -3916,12 +3916,31 @@ class Search {
   }
 
   getResults() {
+    jquery__WEBPACK_IMPORTED_MODULE_1___default().getJSON(universityData.root_url + '/wp-json/university/v1/search?term=' + this.searchField.val(), results => {
+      this.resultsDiv.html(`
+        <div class="row">
+          <div class="one-third">
+            <h2 class="search-overlay__section-title">General Information</h2>
+            ${results.genralInfo.length ? '<ul class="link-list min-list">' : '<p>No general information matches that search.</p>'}
+          </div>
+          <div class="one-third">
+            <h2 class="search-overlay__section-title">Programs</h2>
+          </div>
+          <div class="one-third">
+            <h2 class="search-overlay__section-title">Campuses</h2>
+
+            <h2 class="search-overlay__section-title">Events</h2>
+          </div>
+        </div>
+      `);
+    }); // Delete this code later on
+
     jquery__WEBPACK_IMPORTED_MODULE_1___default().when(jquery__WEBPACK_IMPORTED_MODULE_1___default().getJSON(universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchField.val()), jquery__WEBPACK_IMPORTED_MODULE_1___default().getJSON(universityData.root_url + '/wp-json/wp/v2/pages?search=' + this.searchField.val())).then((posts, pages) => {
       var combinedResults = posts[0].concat(pages[0]);
       this.resultsDiv.html(`
             <h2 class="search-overlay__section-title">General Information</h2>
             ${combinedResults.length ? '<ul class="link-list min-list">' : '<p>No general information matches that search.</p>'}
-                ${combinedResults.map(item => `<li><a href="${item.link}">${item.title.rendered}</a></li>`).join('')}
+                ${combinedResults.map(item => `<li><a href="${item.link}">${item.title.rendered}</a> ${item.type == 'post' ? `by ${item.authorName}` : ''}</li>`).join('')}
             </ul>
             ${combinedResults.length ? '</ul>' : ''}
         `);
