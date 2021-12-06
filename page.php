@@ -4,10 +4,7 @@ get_header();
 
     while(have_posts()) {
         the_post();
-        pageBanner(array(
-          'title' => 'Hello there this is the title',
-          'subtitle' => 'this is the subtitle'
-        ));
+        pageBanner();
         ?>
     
     
