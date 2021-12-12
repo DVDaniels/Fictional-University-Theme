@@ -11,6 +11,7 @@ pageBanner(array(
     <?php
       while(have_posts()) {
         the_post(); ?>
+        <div class="one-third"><?php the_post_thumbnail('professorLandscape');?></div>
         <div class="post-item">
           <h2 class="headline headline--medium headline-post-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 
@@ -20,7 +21,7 @@ pageBanner(array(
 
           <div class="generic-content">
             <?php the_excerpt(); ?>
-            <p><a class="btn btn--blue" href="<?php the_permalink(); ?>">Continue Reading</a></p>
+            <!-- <p><a class="btn btn--blue" href="<?php the_permalink(); ?>">Continue Reading</a></p> -->
           </div>
         </div>
         <?php
